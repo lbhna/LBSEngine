@@ -1,0 +1,23 @@
+function main()
+{
+	var a=0;
+	function test1()
+	{
+		a++;//父域内的变量
+		trace("test1 function ..."+LF);
+		var b=0;
+	}
+	trace("main function ..."+LF);
+
+	test1();	//调用域内函数
+	test2();	//调用域内函数
+
+	trace("a=="+a.toString()+LF);
+	function test2()
+	{
+		a++;//父域内的变量
+		trace("test2 function ..."+LF);
+	}
+}
+//主函数入口
+main();

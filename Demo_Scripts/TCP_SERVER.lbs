@@ -1,0 +1,28 @@
+
+function onaccept(s)
+{
+trace("server onaccept:"+s.toString()+" , client port:"+getTCPPort(s).toString()+CR+LF);
+sendToTCP(s,"$0");
+}
+function onrecv(s,data)
+{
+trace("server onrecv:"+s.toString() + " :"+data.toString()+CR+LF);
+sendToTCP(s,"bbbbbBBBBBBB");
+}
+function onclose(s)
+{
+trace("onclose:"+s.toString()+CR+LF);
+}
+
+var serversocket =0;
+function main()
+{
+	serversocket =openTCP("127.0.0.1",10002,"onaccept","onrecv","onclose");
+	if(serversocket == 0)
+	{
+		trace("openTCP Ê§°Ü£¡"+CR+LF);
+	}
+}
+main();
+
+

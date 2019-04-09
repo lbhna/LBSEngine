@@ -1,0 +1,5 @@
+var str ="123";
+var index=1;
+var a=(str.toBinary()[index-1].toInteger()+1).toHexString();
+
+MessageBox(a);

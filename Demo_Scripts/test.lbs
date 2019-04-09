@@ -1,0 +1,75 @@
+var a=1,2,3;
+trace(a.toString()+LF);
+
+#include "./lib/File.lbs"
+
+#define DOUBLE_PI 3.141592654
+
+
+/////////////////////
+//文件类测试函数
+function testFile()
+{
+
+	//var files=listDirectory(getScriptRootDirectory());
+	//for(var i=0;i<files.length();i++)
+	//{
+		//MessageBox(files[i]+LF);
+	//}
+	var filename =getScriptRootDirectory() + "\data.txt";
+	MessageBox(filename);
+	
+	var file =new CFile;
+
+	if(!file.Open(filename))
+	{
+		MessageBox("打开文件失败!");
+		return;
+	}
+	var str;
+	MessageBox("打开文件成功!");
+	var len=0;
+	while( (len=file.ReadString(str)) )
+	{
+	MessageBox("#"+str);
+	
+		switch(str)
+		{
+		case "123":
+			{
+				MessageBox("长度:"+len.toString()+LF+"内容:"+str+LF+"十进制");
+			}
+		case "456":
+			{
+				MessageBox("长度:"+len.toString()+LF+"内容:"+str+LF+"十进制");
+			}
+		case "789":
+			{
+				MessageBox("长度:"+len.toString()+LF+"内容:"+str+LF+"十进制");
+			}
+		case "abc":
+			{
+				MessageBox("长度:"+len.toString()+LF+"内容:"+str+LF+"十六进制");
+			}
+		case "def":
+			{
+				MessageBox("长度:"+len.toString()+LF+"内容:"+str+LF+"十六进制");
+			}
+		default:
+			{
+				MessageBox("unknown string" + LF + str);
+			}
+		}
+	}
+	MessageBox("当前文件指针位置：" + file.GetPosition().toString()+" 文件长度："+file.GetLength().toString() );
+	file.Close();
+
+}
+
+
+var t0 =getCpuTime();
+//执行函数
+testFile();
+var t1 =getCpuTime();
+t1 =t1-t0;
+trace("执行用时:"+t1.toString()+"ms"+CR+LF);

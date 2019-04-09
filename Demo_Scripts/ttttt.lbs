@@ -1,0 +1,18 @@
+ 
+class	v3f
+{
+	var		x;			
+	var		y;	
+	var		z;		
+};
+
+function add(a)
+{
+ a = a+10;
+ return a;
+}
+
+
+var t=0;
+add(t);
+trace(t.toString()+LF);

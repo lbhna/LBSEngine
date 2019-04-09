@@ -1,0 +1,15 @@
+
+
+function µ›πÈ≤‚ ‘(i)
+{
+	
+	if(i<0)
+		return;
+	
+	
+	i--;
+	trace(i.toString());
+	µ›πÈ≤‚ ‘(i);	
+}
+
+µ›πÈ≤‚ ‘(5);

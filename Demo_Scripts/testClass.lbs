@@ -1,0 +1,23 @@
+class CTest
+{
+	var m_strName ="aaa";
+	function CTest()
+	{
+	MessageBox("构造函数："+m_strName);
+	}
+	function Finalize()
+	{
+	MessageBox("析构函数：");
+	}
+	function output()
+	{
+	MessageBox("output:"+m_strName);
+	}
+}
+function main()
+{
+	var test =new CTest;
+	test.output();
+	delete test;
+}
+main();

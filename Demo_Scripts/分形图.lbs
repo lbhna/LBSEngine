@@ -1,0 +1,110 @@
+#define BAILOUT 16
+#define MAX_ITERATIONS 1000
+
+#include "./Lib/File.lbs"
+
+function mandelbrot( x, y)
+{
+	var cr = y - 0.5;
+	var ci = x;
+	var zi = 0.0;
+	var zr = 0.0;
+	for(var i=0;i<MAX_ITERATIONS;i++) 
+	{
+		var temp = zr * zi;
+		var zr2 = zr * zr;
+		var zi2 = zi * zi;
+
+		zr = zr2 - zi2 + cr;
+		zi = temp + temp + ci;
+		if ( zi2 + zr2 > BAILOUT)
+		 	return i;
+	}
+	return 0;
+}
+function main()
+{
+	var io=new CFile;
+	io.Open(getScriptRootDirectory()+"\graph.txt");//打开文件
+	io.SetLength(0);//清空文件原有数据
+	
+	for (var y = -39; y < 39; y++) 
+	{
+		io.WriteString(CR+LF);
+		for (var x = -39; x < 39; x++)
+		{
+			var i = mandelbrot(x/40.0, y/40.0);
+			if(i==0)
+			{
+				io.WriteString("*");
+			}
+			else
+			{
+				io.WriteString(" ");
+			}
+		}
+		trace(y.toString()+CR+LF);
+	}
+	io.Close();//关闭文件
+	shellExecute("open",getScriptRootDirectory()+"\graph.txt");//利用系统shell打开文件
+}
+
+
+function TimerProc()
+{
+	trace("ontimer ..."+getCpuTime().toString()+CR+LF);
+}
+var timer=createTimer("TimerProc",1000);
+
+
+
+var t0 =getCpuTime();
+////分形图测试
+main();
+trace("main 函数执行用时:"+(getCpuTime()-t0).toString()+"ms"+CR+LF);
+
+class CStructTest
+{
+	var a=1;
+	var b=2.0;
+	var c="1234567890";
+	var d;
+};
+
+function GetStruct()
+{
+	var r=new CStructTest;
+	
+	r.d =new CStructTest;
+	r.d.a=2;
+	r.d.b=3.0;
+	r.d.c="abcdefg";
+
+	return r;
+}
+
+
+
+function test()
+{
+	var str ="0123456789";
+	trace(str+CR+LF);
+	
+	trace(str[1]+CR+LF);
+
+	str[1]="a";
+	trace(str+CR+LF);
+
+	str[1]="abc";
+	trace(str+CR+LF);
+
+
+	str[str.length()]="abcdefg";
+	trace("str="+str+" , len="+str.length().toString()+CR+LF);
+
+	//这条语句是不是很复杂？
+	MessageBox( "cos="+cos(20*10.0+0.5).toString()+":len="+cos(20*10.0+0.5).toString().length().toString() );
+
+}
+//执行test函数
+//test();

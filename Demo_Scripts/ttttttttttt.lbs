@@ -1,0 +1,10 @@
+
+#include "./lib/File.lbs"
+
+function main()
+{
+	var t=0;
+	var file =new CFile;
+	file=t;
+} 
+main();

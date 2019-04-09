@@ -1,0 +1,123 @@
+//自定义 文件读写操作类
+class CFile
+{
+///////////////////////////////////////////
+	var m_hFile =null;	//成员变量 文件句柄 
+
+///////////////////////////////////////////
+	function Open(fileName)
+	{
+		m_hFile		=fopen(fileName);
+		if(!m_hFile)
+			return false;
+		SeekToBegin();
+		return true;
+	}
+	function Close()
+	{
+		if(m_hFile)
+		{
+			fclose(m_hFile);
+			m_hFile=null;
+		}
+	}
+	function Read(dataBuffer,readSize)
+	{
+		if(!m_hFile)
+		{
+			trace("读文件失败！文件句柄无效!"+CR+LF);
+			return 0;
+		}
+
+		return fread(m_hFile,dataBuffer,readSize);
+	}
+	function Write(dataBuffer)
+	{
+		if(!m_hFile)
+		{
+			trace("写文件失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+
+		fwrite(m_hFile,dataBuffer);
+		return true;
+	}
+	function ReadString(Str)
+	{
+		if(!m_hFile)
+		{
+			trace("读文件失败！文件句柄无效!"+CR+LF);
+			return 0;
+		}
+		return freadString(m_hFile,Str);
+	}
+	function WriteString(Str)
+	{
+		if(!m_hFile)
+		{
+			trace("写文件失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+
+		fwriteString(m_hFile,Str);
+		return true;
+	}
+	function Seek(Pos)
+	{
+		if(!m_hFile)
+		{
+			trace("文件定位失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+		fseek(m_hFile,Pos);
+		return true;
+	}
+	function SeekToBegin()
+	{
+		if(!m_hFile)
+		{
+			trace("文件定位失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+		fseekToBegin(m_hFile);
+		return true;
+	}
+	function SeekToEnd()
+	{
+		if(!m_hFile)
+		{
+			trace("文件定位失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+		fseekToEnd(m_hFile);
+		return true;
+	}
+	function GetLength()
+	{
+		if(!m_hFile)
+		{
+			trace("获取文件长度失败！文件句柄无效!"+CR+LF);
+			return 0;
+		}
+		return fgetLength(m_hFile);
+	}
+	function SetLength(len)
+	{
+		if(!m_hFile)
+		{
+			trace("设置文件长度失败！文件句柄无效!"+CR+LF);
+			return false;
+		}
+		fsetLength(m_hFile,len);
+		return true;
+	}
+	function GetPosition()
+	{
+		if(!m_hFile)
+		{
+			trace("获取文件读写指针位置失败！文件句柄无效!"+CR+LF);
+			return 0;
+		}
+		return fgetPosition(m_hFile);
+	}
+};

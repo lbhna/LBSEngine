@@ -1,0 +1,14 @@
+
+function OnRecvData(id,ip,port,data)
+{
+trace("UDP:"+id.toString()+" IP:"+ip.toString()+" Port:"+port.toString() + " data= "+data.toString());
+sendToUDP(id,ip,5555,"server"+CR+LF);
+}
+function main()
+{
+
+	var id =openUDP("OnRecvData",6666,"127.0.0.1");
+	trace("id="+id.toString()+CR+LF);
+}
+
+main();

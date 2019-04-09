@@ -1,0 +1,115 @@
+
+class DataPacket10
+{//数据协议1.0
+	var u0;
+	var len;
+	var id;
+	var utc;
+	var lon;
+	var lat;
+	var height;
+	var course;
+	var alpha;
+	var roll;
+	var crc;
+	
+	function DataPacket10()
+	{
+		
+		u0.reSize(2);
+		len.reSize(1);
+		id.reSize(1);
+		utc.reSize(3);
+		lon.reSize(3);
+		lat.reSize(3);
+		height.reSize(2);
+		course=0.0;
+		alpha=0.0;
+		roll=0.0;
+		crc.reSize(1);
+	}
+}
+
+class DataPacket20
+{//数据协议2.0
+	var lon	=0.0;
+	var lat	=0.0;
+	var height	=0.0;
+	var course	=0.0;
+	var alpha	=0.0;
+	var roll	=0.0;
+	var utc	=0;
+	var id	=0;
+	var dwFlag	=0;	
+}
+
+
+function crc8(data,size)
+{//计算8位CRC校验和
+	var crc=0;
+	for(var i=0;i<size;i++)
+	{
+		crc =crc+data[i].toInteger();
+		crc =crc%256;
+	}
+	return crc;
+}
+var bLockTarget=false;
+
+function onrecv10(id,ip,port,data)
+{//1.0数据接收处理函数
+	var packet =new DataPacket10;
+	packet 	=data;
+	var crc	=crc8(data,data.bytes()-1);
+	if(crc != packet.crc.toInteger())
+	{
+		trace("###数据校验错误!"+crc.toString()+"!="+packet.crc.toInteger().toString()+CR+LF);
+		return;
+	}
+	var id 	=packet.id.toInteger();
+	var utc	=packet.utc.toInteger().toFloat()*10.0;
+	var lon	=packet.lon.toInteger().toFloat()*0.000022;
+	var lat	=packet.lat.toInteger().toFloat()*0.000011;
+	var height	=packet.height.toInteger().toFloat();
+	var course =packet.course;
+	var alpha	=packet.alpha;
+	var roll	=packet.roll;
+	var name =id.toString();
+	
+	trace("id="+name+",时间="+utc.toString()+",经度="+lon.toString()+",纬度="+lat.toString()+",高度="+height.toString()+",航向角="+course.toString()+CR+LF);
+	
+	
+}
+
+function onrecv20(socket_id,socket_ip,socket_port,data)
+{//2.0数据接收处理函数
+	var packet =new DataPacket20;
+	packet 	=data;
+
+	
+	var id 	=packet.id;
+	var utc	=packet.utc*10;
+	var lon	=packet.lon;
+	var lat	=packet.lat;
+	var height	=packet.height;
+	var course =packet.course;
+	var alpha	=packet.alpha;
+	var roll	=packet.roll;
+	var name 	=id.toString();	
+	
+	trace("id="+name+",时间="+utc.toString()+",经度="+lon.toString()+",纬度="+lat.toString()+",高度="+height.toString()+",航向角="+course.toString()+CR+LF);
+}
+
+
+function StartRecvData()
+{//启动数据接收
+	
+	var hSocket=openUDP("onrecv20",10003,getLocalHostDefaultIp());
+	
+}
+
+StartRecvData();
+
+
+
+

@@ -1,0 +1,12 @@
+function main()
+{
+
+	//MessageBox(getLocalHostDefaultIp());
+	 var iparray =getLocalHostIpArray();
+	 
+	 for(var i=0;i<iparray.length();i++)
+	 {
+		trace(iparray[i]+LF);
+	 }
+}
+main();

@@ -1,0 +1,47 @@
+class A
+{
+	var name="A";
+	function showName()
+	{
+	trace("myname="+name+CR+LF);
+	}
+}
+class B
+{
+	var name="B";
+	function showName()
+	{
+	trace("myname="+name+CR+LF);
+	}
+}
+
+
+function test(aa)
+{
+	trace("test:"+aa.name+CR+LF);
+	aa.showName();
+}
+function test2(aa)
+{
+	trace("test:"+aa.toString()+CR+LF);
+	
+}
+function main()
+{
+	var a=new A;	
+	var b=new B;	
+	//a.showName();	
+	//b.showName();	
+	//trace("-----------------------"+CR+LF);
+	
+	test(a);
+	test(b);
+	
+
+	
+}
+
+main();
+
+
+

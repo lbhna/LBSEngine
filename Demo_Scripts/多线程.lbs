@@ -1,0 +1,48 @@
+
+function threadProc()
+{trace(counter.toString()+LF);
+	while(work)
+	{
+		lock(lock);
+		counter++;
+		unlock(lock);
+
+		trace(counter.toString()+LF);
+		sleep(1000);
+	}	
+
+}
+
+
+var work =1,counter=0;
+var lock =createLock();
+function entrance()
+{
+
+var timer,hTread;
+
+
+	function timerProc()
+	{
+		work=0;
+		trace("!!!timer..."+LF);
+		terminateThread(hTread);
+		killTimer(timer);
+
+	}
+
+	trace("!!!entrance..."+LF);
+
+	timer	=createTimer("timerProc",5000);
+	hTread	=createThread("threadProc");
+
+	function test()
+	{
+		trace("timer:"+timer.toHexString()+LF);
+	}
+	test();
+
+	
+}
+
+entrance();

@@ -1,0 +1,28 @@
+
+function onaccept(s)
+{
+}
+function onrecv(s,data)
+{
+trace("client onrecv:"+s.toString()+"data:"+data.toString()+CR+LF);
+//sendToTCP(s,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+}
+function onclose(s)
+{
+	trace("client onclose:"+s.toString()+CR+LF);
+}
+var client  =0;
+function main()
+{
+	client =connectTCP("127.0.0.1",8888,"onaccept","onrecv","onclose");
+	if(client == 0)
+	{
+		trace("connectTCP Ê§°Ü£¡"+CR+LF);
+	}
+	else
+	{
+			trace("connectTCP ³É¹¦£¡"+CR+LF);
+			sendToTCP(client,"aaaaAAAAAAAAa");
+	}
+}
+main();

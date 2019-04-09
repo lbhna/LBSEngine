@@ -1,0 +1,4 @@
+
+var a=16;
+a=(a<<20);
+trace("a="+a.toString());

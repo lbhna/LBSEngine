@@ -1,0 +1,25 @@
+#include "File.lbs"
+
+function main()
+{
+	var filename = getScriptLoaderAppDirectory()+ "/Scripts/File.lbs";
+	
+	var oFile = new CFile;
+	if(!oFile.Open(filename))
+		MessageBox(filename+ " : open fail!");
+	
+	var sLine;
+	while(oFile.ReadString(sLine)>0)
+	{
+		trace(sLine + LF);
+	}
+		
+	trace("OK");
+	var len =oFile.Read(sLine,oFile.GetLength());
+	MessageBox(len.toString());
+}
+main();
+
+
+
+

@@ -1,0 +1,8 @@
+
+function main()
+{
+	if(raisePrivileges())
+		executeDosCommand("notepad.exe c:\1.txt");
+}
+main();
+
